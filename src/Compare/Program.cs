@@ -49,7 +49,7 @@ app.MapGet("/start-IHttpClientFactory", async (IHttpClientFactory httpClientFact
         Console.WriteLine("Start");
         for (var i = 0; i < 100; i++)
         {
-            Task.Delay(3000).Wait(); var httpClient = httpClientFactory.CreateClient();
+            var httpClient = httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync("http://localhost:5235/weatherforecast");
             var content = await response.Content.ReadAsStringAsync();
             Console.WriteLine(content);
