@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api_Demo", "Api_Demo\Api_Demo.csproj", "{2E66B402-7623-4461-BFBB-59983FF1E38B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compare", "Compare\Compare.csproj", "{3CAFB0E2-7FFB-47EA-84E1-BB376F866AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E66B402-7623-4461-BFBB-59983FF1E38B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E66B402-7623-4461-BFBB-59983FF1E38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E66B402-7623-4461-BFBB-59983FF1E38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E66B402-7623-4461-BFBB-59983FF1E38B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CAFB0E2-7FFB-47EA-84E1-BB376F866AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CAFB0E2-7FFB-47EA-84E1-BB376F866AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CAFB0E2-7FFB-47EA-84E1-BB376F866AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CAFB0E2-7FFB-47EA-84E1-BB376F866AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
