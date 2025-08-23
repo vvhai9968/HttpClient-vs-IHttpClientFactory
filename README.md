@@ -32,7 +32,7 @@ app.MapGet("/start-httpClient", async () =>
 **Cách `IHttpClientFactory` hoạt động:**
 
 1. **Quản lý pool (Pooling):** `IHttpClientFactory` quản lý một pool các `HttpMessageHandler`. Khi bạn yêu cầu một `HttpClient`, nó sẽ tái sử dụng một `HttpMessageHandler` từ pool này.
-2. **Tái sử dụng kết nối:** Bằng cách tái sử dụng `HttpMessageHandler`, các kết nối TCP bên dưới cũng được tái sử dụng, tránh việc phải tạo socket mới cho mỗi yêu cầu. Socket sẽ được giữ ở trạng thái chờ khoảng 2p nếu ko có bất kỳ yêu kết nối nào thì nó sẽ tự động được hủy và rơi vào trạng thái `TIME_WAIT`
+2. **Tái sử dụng kết nối:** Bằng cách tái sử dụng `HttpMessageHandler`, các kết nối TCP bên dưới cũng được tái sử dụng, tránh việc phải tạo socket mới cho mỗi yêu cầu. Socket sẽ được giữ ở trạng thái `ESTABLISHED` khoảng 2p nếu ko có bất kỳ yêu kết nối nào thì nó sẽ tự động được hủy và rơi vào trạng thái `TIME_WAIT`
 3. **Tránh cạn kiệt socket:** Điều này ngăn chặn việc tạo ra hàng ngàn socket ở trạng thái `TIME_WAIT`, giúp ứng dụng hoạt động ổn định và hiệu quả.
 
 Endpoint `/start-IHttpClientFactory` sử dụng cách tiếp cận đúng đắn:
