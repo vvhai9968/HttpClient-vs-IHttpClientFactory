@@ -6,7 +6,7 @@ Dự án này minh họa sự khác biệt quan trọng giữa việc sử dụn
 
 Một anti-pattern phổ biến là khởi tạo và hủy `HttpClient` cho mỗi yêu cầu. Mặc dù `HttpClient` triển khai `IDisposable`, việc tạo mới nó liên tục sẽ gây ra vấn đề nghiêm trọng.
 
-Khi một instance `HttpClient` bị hủy, socket bên dưới không được giải phóng ngay lập tức. Thay vào đó, nó chuyển sang trạng thái `TIME_WAIT` trong một khoảng thời gian để đảm bảo tất cả dữ liệu đã được truyền đi. Nếu ứng dụng của bạn thực hiện một số lượng lớn các yêu cầu ra bên ngoài trong một thời gian ngắn, bạn sẽ nhanh chóng tích lũy một số lượng lớn các socket ở trạng thái `TIME_WAIT`. Điều này làm cạn kiệt các port có sẵn của hệ điều hành, dẫn đến `SocketException` và làm ứng dụng của bạn không thể tạo kết nối mới.
+Khi một instance `HttpClient` bị hủy, socket bên dưới không được giải phóng ngay lập tức. Thay vào đó, nó chuyển sang trạng thái `TIME_WAIT` trong một khoảng thời gian để đảm bảo tất cả dữ liệu đã được truyền đi (khoảng 2p). Nếu ứng dụng của bạn thực hiện một số lượng lớn các yêu cầu ra bên ngoài trong một thời gian ngắn, bạn sẽ nhanh chóng tích lũy một số lượng lớn các socket ở trạng thái `TIME_WAIT`. Điều này làm cạn kiệt các port có sẵn của hệ điều hành, dẫn đến `SocketException` và làm ứng dụng của bạn không thể tạo kết nối mới.
 
 Trong dự án này, endpoint `/start-httpClient` mô phỏng vấn đề này:
 
@@ -32,7 +32,7 @@ app.MapGet("/start-httpClient", async () =>
 **Cách `IHttpClientFactory` hoạt động:**
 
 1. **Quản lý pool (Pooling):** `IHttpClientFactory` quản lý một pool các `HttpMessageHandler`. Khi bạn yêu cầu một `HttpClient`, nó sẽ tái sử dụng một `HttpMessageHandler` từ pool này.
-2. **Tái sử dụng kết nối:** Bằng cách tái sử dụng `HttpMessageHandler`, các kết nối TCP bên dưới cũng được tái sử dụng, tránh việc phải tạo socket mới cho mỗi yêu cầu.
+2. **Tái sử dụng kết nối:** Bằng cách tái sử dụng `HttpMessageHandler`, các kết nối TCP bên dưới cũng được tái sử dụng, tránh việc phải tạo socket mới cho mỗi yêu cầu. Socket sẽ được giữ ở trạng thái chờ khoảng 2p nếu ko có bất kỳ yêu kết nối nào thì nó sẽ tự động được hủy và rơi vào trạng thái `TIME_WAIT`
 3. **Tránh cạn kiệt socket:** Điều này ngăn chặn việc tạo ra hàng ngàn socket ở trạng thái `TIME_WAIT`, giúp ứng dụng hoạt động ổn định và hiệu quả.
 
 Endpoint `/start-IHttpClientFactory` sử dụng cách tiếp cận đúng đắn:
